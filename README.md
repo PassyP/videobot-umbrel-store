@@ -92,6 +92,38 @@ oudere code op een nieuwer schema.
 * Na een herstel staat de kill-switch aan tot elke `UNKNOWN`-post is beoordeeld
   ("Alles: niet gepost" of per item); pas daarna kan hij uit.
 
+## Discovery-API en de Umbrel-proxy
+
+De discovery-engine op de Mac stuurt kandidaten naar `/api/v1/discovery` met een bearer-token (ADR 0009,
+contract in `docs/discovery-api.md`). Zonder extra instelling zet Umbrel's `app_proxy` daar zijn eigen login voor.
+De engine krijgt dan een HTML-loginpagina in plaats van VAP's JSON-antwoord. Daarom staat in
+`videobot-app/docker-compose.yml`:
+
+```yaml
+app_proxy:
+  environment:
+    PROXY_AUTH_WHITELIST: "/api/*"
+```
+
+Het pad `/api/*` gaat dan langs Umbrel's login. VAP controleert het token zelf. Het dashboard blijft achter de
+Umbrel-login en de VAP-login.
+
+**Curl-check op het apparaat** (na elke release met deze wijziging). De poort staat in de app-info van Umbrel
+(in deze repository `port: 8742` in `umbrel-app.yml`):
+
+```sh
+curl -i http://umbrel.local:<poort>/api/v1/discovery/config
+```
+
+Verwacht: `HTTP/1.1 401`, de header `WWW-Authenticate: Bearer realm="vap-discovery"` en een JSON-body
+`{"error":{"code":"unauthorized",…}}`. Met een geldig token (`-H "Authorization: Bearer vapd_…"`) krijg je `200`
+met de config. Zie je een HTML-loginpagina van Umbrel, dan werkt de whitelist niet.
+
+**Fallback, alleen als de whitelist niet werkt**: zet onder `app_proxy` `PROXY_AUTH_ADD: "false"`. Umbrel's login
+valt dan voor de hele app weg, ook voor het dashboard. Het dashboard wordt dan alleen beschermd door het eigen
+VAP-wachtwoord (ADR 0007). Dat is een bewuste verzwakking van één laag. Het is een wijziging in `docker-compose.yml`
+en loopt via dezelfde release-stap als de whitelist. Deze fallback is nog niet op een apparaat getest.
+
 ## Lokaal testen zonder Umbrel
 
 `make umbrel-sim` bouwt het image en draait het onder dezelfde beperkingen als de compose
