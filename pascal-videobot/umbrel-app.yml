@@ -1,0 +1,54 @@
+manifestVersion: 1
+id: pascal-videobot
+category: media
+name: Videobot
+version: "0.1.2"
+tagline: Telegram-videobot met wachtrij, duplicaatcontrole en plaatsing in je kanaal
+# Umbrel wants a URL here. PassyP/pascal-umbrel-store is filled in by scripts/update_umbrel_manifest.py
+# (the repository must be public for Umbrel to fetch it).
+icon: https://raw.githubusercontent.com/PassyP/pascal-umbrel-store/main/pascal-videobot/icon.svg
+description: >-
+  Videobot haalt video's binnen via links die je naar je Telegram-bot stuurt,
+  normaliseert ze tot maximaal 49 MB, controleert ze op duplicaten in de hele
+  historie en plaatst ze volgens een instelbaar interval in je Telegram-kanaal.
+  Harde limiet: maximaal 8 posts per dag.
+
+
+  De app draait als een enkel proces met een SQLite-database. Elk uur wordt een
+  geverifieerde back-up gemaakt; bij een lege database herstelt de app zichzelf
+  uit de nieuwste back-up, met de kill-switch aan en onzekere posts als
+  "onbekend" gemarkeerd.
+
+
+  Het bot-token voer je zelf in tijdens de setup. Als setupcode gebruik je het
+  app-wachtwoord dat Umbrel bij deze app toont.
+developer: Pascal
+website: https://github.com/PassyP/pascal-umbrel-store
+dependencies: []
+repo: https://github.com/PassyP/pascal-umbrel-store
+support: https://github.com/PassyP/pascal-umbrel-store/issues
+port: 8742
+gallery: []
+path: ""
+defaultUsername: ""
+# TO VERIFY ON THE DEVICE (via the Umbrel UI only): with deterministicPassword the UI should
+# show APP_PASSWORD as the app's password. If the literal text "$APP_PASSWORD" shows up
+# instead, replace this with "" and read the password from the app's settings in Umbrel.
+defaultPassword: "$APP_PASSWORD"
+deterministicPassword: true
+submitter: Pascal
+submission: https://github.com/PassyP/pascal-umbrel-store
+releaseNotes: >-
+  Eerste versie: health-endpoints, uurlijkse back-ups met automatisch herstel,
+  retentie van mediabestanden en een schijfbewaker.
+# Regenerable data stays out of Umbrel's own (hourly, encrypted) backups. The app's own
+# verified SQLite backups in data/backups ARE included, and so are the processed videos
+# (data/media/processed, ~1.5 GB at defaults; retention purges posted files after 7 days):
+# the source tweet may be gone, so after a restore a queued item can only be sent from this
+# file. Ignored: the raw live DB (the verified backups cover it), uploaded exports (data/imports:
+# can be GBs and are re-creatable from Telegram), work files and tool caches.
+backupIgnore:
+  - data/db
+  - data/imports
+  - data/media/work
+  - data/tools

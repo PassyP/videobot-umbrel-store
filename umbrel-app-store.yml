@@ -1,0 +1,4 @@
+# Community App Store manifest (must sit at the root of the store repository).
+# App ids in this store must start with the store id: "pascal" (so "pascal-videobot").
+id: "pascal"
+name: "Pascal's Apps"
