@@ -1,12 +1,12 @@
 manifestVersion: 1
-id: pascal-videobot
+id: videobot-app
 category: media
 name: Videobot
-version: "0.1.2"
+version: "0.1.3"
 tagline: Telegram-videobot met wachtrij, duplicaatcontrole en plaatsing in je kanaal
-# Umbrel wants a URL here. PassyP/pascal-umbrel-store is filled in by scripts/update_umbrel_manifest.py
+# Umbrel wants a URL here. PassyP/videobot-umbrel-store is filled in by scripts/update_umbrel_manifest.py
 # (the repository must be public for Umbrel to fetch it).
-icon: https://raw.githubusercontent.com/PassyP/pascal-umbrel-store/main/pascal-videobot/icon.svg
+icon: https://raw.githubusercontent.com/PassyP/videobot-umbrel-store/main/videobot-app/icon.svg
 description: >-
   Videobot haalt video's binnen via links die je naar je Telegram-bot stuurt,
   normaliseert ze tot maximaal 49 MB, controleert ze op duplicaten in de hele
@@ -22,11 +22,11 @@ description: >-
 
   Het bot-token voer je zelf in tijdens de setup. Als setupcode gebruik je het
   app-wachtwoord dat Umbrel bij deze app toont.
-developer: Pascal
-website: https://github.com/PassyP/pascal-umbrel-store
+developer: Videobot
+website: https://github.com/PassyP/videobot-umbrel-store
 dependencies: []
-repo: https://github.com/PassyP/pascal-umbrel-store
-support: https://github.com/PassyP/pascal-umbrel-store/issues
+repo: https://github.com/PassyP/videobot-umbrel-store
+support: https://github.com/PassyP/videobot-umbrel-store/issues
 port: 8742
 gallery: []
 path: ""
@@ -36,8 +36,8 @@ defaultUsername: ""
 # instead, replace this with "" and read the password from the app's settings in Umbrel.
 defaultPassword: "$APP_PASSWORD"
 deterministicPassword: true
-submitter: Pascal
-submission: https://github.com/PassyP/pascal-umbrel-store
+submitter: Videobot
+submission: https://github.com/PassyP/videobot-umbrel-store
 releaseNotes: >-
   Eerste versie: health-endpoints, uurlijkse back-ups met automatisch herstel,
   retentie van mediabestanden en een schijfbewaker.

@@ -7,8 +7,8 @@ Installeren en updaten gaat volledig via de Umbrel-UI.
 
 ```
 deploy/umbrel/
-  umbrel-app-store.yml          store-id "pascal"
-  pascal-videobot/
+  umbrel-app-store.yml          store-id "videobot"
+  videobot-app/
     umbrel-app.yml              manifest (poort 8742, deterministicPassword, backupIgnore)
     docker-compose.yml          app_proxy (declaratie) + service `app` (image op digest gepind; `OWNER` en
                                 digest zijn plaatsaanduidingen tot de eerste release)
@@ -24,7 +24,7 @@ van `deploy/umbrel/` hoort dus in de root van een aparte store-repo. Het release
 2. pint de digest in `docker-compose.yml` (de plaatsaanduiding `OWNER` wordt ingevuld), verhoogt de versie in
    `umbrel-app.yml` en vult `OWNER/REPO` in de links in;
 3. opent een pull request in de app-repo (met ook `uv.lock` bij de wekelijkse yt-dlp-build);
-4. job `store-sync`: kopieert `umbrel-app-store.yml` en `pascal-videobot/` (dezelfde gepinde bestanden, dezelfde
+4. job `store-sync`: kopieert `umbrel-app-store.yml` en `videobot-app/` (dezelfde gepinde bestanden, dezelfde
    digest) naar de root van de store-repo en pusht naar `main`.
 
 **Eenmalige instelling voor stap 4** (app-repo, Settings, Secrets and variables, Actions):
@@ -47,7 +47,7 @@ app-token met schrijfrechten op contents en pull requests); de workflow gebruikt
 starten dan vanzelf. Zonder dat secret heeft het release-job `make check` al gedraaid vóór het bouwen; wil je
 de CI-checks toch op de PR, sluit en heropen hem dan zelf.
 
-**Icoon.** `umbrel-app.yml` verwijst met `icon:` naar `pascal-videobot/icon.svg` via een
+**Icoon.** `umbrel-app.yml` verwijst met `icon:` naar `videobot-app/icon.svg` via een
 `raw.githubusercontent.com`-URL. De release-stap vult `OWNER/REPO` in; de repository moet publiek zijn,
 anders kan Umbrel het icoon niet ophalen.
 
@@ -61,7 +61,7 @@ faalt de installatie met "unauthorized".
 2. Klik rechtsboven op **&#8943;** (drie puntjes) en kies **Community App Stores**.
 3. Plak de GitHub-URL van de store-repo (bijv. `https://github.com/<jij>/<store-repo>`) en
    voeg toe.
-4. Open de store "Pascal's Apps", kies **Videobot** en klik **Install**.
+4. Open de store "Videobot", kies **Videobot** en klik **Install**.
 5. Open de app. De setupcode is het app-wachtwoord dat Umbrel bij de app toont
    (`deterministicPassword`). **Nog te verifiëren op het apparaat** of Umbrel dit als
    `defaultPassword` toont; zo niet, dan staat het in de app-instellingen.
