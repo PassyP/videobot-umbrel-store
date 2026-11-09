@@ -11,7 +11,7 @@ services:
 
   app:
     # Digest pinning: the release workflow fills in the owner of the image name and the sha256 (multi-arch index digest).
-    image: ghcr.io/passyp/videobot:0.1.8@sha256:effdc81f446e69078f162cc3fd131c5098b999d10dfc799455a8b35bd38709ad
+    image: ghcr.io/passyp/videobot:0.1.9@sha256:909ef83ac4972a8ae96628c118ceb9c65372fb705336fdfe20a603454b5ccfeb
     user: "1000:1000"
     init: true
     restart: on-failure
